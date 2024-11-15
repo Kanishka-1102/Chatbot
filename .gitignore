@@ -1,20 +1,38 @@
-# Ignore Python bytecode files
-__pycache__/
-*.py[cod]
+# Python specific
+*.pyc
 *.pyo
+*.pyd
+__pycache__/
+*.so
 
-# Ignore environment variable file
-.env
-
-# Ignore virtual environment folder
+# Virtual environment
 venv/
-env/
+.env/
+.venv/
+ENV/
 
-# Ignore IDE/editor settings
-.idea/
+# IDEs and editors
 .vscode/
-
-# Ignore other logs or temp files
-*.log
-*.bak
+.idea/
 *.swp
+*.swo
+*.swn
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# Pytest
+.cache/
+
+# Coverage reports
+.coverage
+*.cover
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment variables
+.env
