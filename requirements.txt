@@ -1,7 +1,11 @@
 streamlit 
 dotenv
 PyPDF2 
+PyPDF
 langchain_community
 langchain
 OpenAi
+sentence-transformers
+InstructorEmbedding
+
 
