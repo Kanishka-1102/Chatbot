@@ -1,0 +1,124 @@
+/* Global Styles */
+.stApp {
+    background-image: url("https://media.istockphoto.com/id/1064689094/vector/watercolor-frame-of-gingko-biloba.jpg?s=612x612&w=0&k=20&c=87YvfpcVBlLhFvGjiPwZtWWRbVZA2SAuxa5wHARhA5E=");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.main .block-container {
+    padding: 1rem;
+}
+
+/* Headings */
+h1 {
+    color: #262424 !important;
+    text-align: center;
+    font-size: 3.2rem !important;
+    font-weight: 900 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+h2, h3 {
+    color: #151b01 !important;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #2d6a4f !important;
+}
+
+[data-testid="stSidebar"] > div {
+    background-color: #2a5e47 !important;
+    padding: 2rem 1rem;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] .sidebar-content,
+[data-testid="stSidebar"] .markdown-text-container p,
+[data-testid="stSidebar"] .stMarkdown {
+    color: rgb(15, 15, 15) !important;
+    font-weight: 700 !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #40916c !important;
+    color: rgb(243, 226, 226) !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 8px !important;
+    border: none !important;
+    transition: transform 0.2s ease !important;
+    font-size: 1.1rem !important;
+}
+
+.stButton > button:hover {
+    background-color: #1b4332 !important;
+    transform: translateY(-2px);
+}
+
+/* Text Input Styling */
+.stTextInput > div > div > input {
+    border: 2px solid #40916c !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    background-color: rgba(230, 246, 200, 0.9) !important;
+    color: #050505 !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+}
+
+/* Input Label Styling */
+.stTextInput > label {
+    color: #151b01 !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Placeholder Styling */
+.stTextInput > div > div > input::placeholder {
+    color: #666666 !important;
+    font-weight: 500 !important;
+    opacity: 0.8;
+}
+
+/* Info Box */
+.stInfo {
+    background-color: rgba(64, 145, 108, 0.2) !important;
+    border-left: 4px solid #40916c !important;
+    font-weight: 600 !important;
+}
+
+/* Success Messages */
+.stSuccess {
+    background-color: rgba(64, 145, 108, 0.2) !important;
+    border-left-color: #40916c !important;
+    color: #070707 !important;
+    font-weight: 600 !important;
+}
+
+/* Markdown Text */
+.stMarkdown {
+    color: #121111 !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+}
+
+/* Response Text */
+.stText {
+    color: #070606 !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+/* General Text Content */
+p {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+}
