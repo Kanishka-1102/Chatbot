@@ -104,7 +104,7 @@ def main():
     if st.button("Consult Nearest Doctor"):
         st.markdown("[Click here to consult doctors](https://www.example.com/consult-doctors)", unsafe_allow_html=True)
 
-    # Footer
+  
     st.markdown("---")
     st.markdown("© 2024 Vedabot | Built with ❤️ for Ayurveda and AI.")
 
