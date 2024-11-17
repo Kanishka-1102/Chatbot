@@ -18,9 +18,11 @@ steps to  run it in your local device
 
 Usage 🚀
 Run the bot:
+
 chainlit run main.py
 
 Or for good GUI 
+
 Streamlit run app.py
 
 
