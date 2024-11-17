@@ -1,22 +1,19 @@
 import os
 from langchain.prompts import PromptTemplate
-#from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_community.llms import huggingface_endpoint
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain.chains import RetrievalQA
-
 import chainlit as cl
-import logging 
+import logging
 logging.basicConfig(level=logging.DEBUG)
 
 DB_FAISS_PATH = 'vectorstore/db_faiss'
 
 custom_prompt_template = """
 You are an Ayurveda Advisor. Use the following pieces of information to answer the user's question in detail. When discussing 
-medicines and remedies, ensure to include precautions and exceptions where necessary.Dont include references section.
-Create stand-alone question from follow up question retaining context from previous exchange.
+medicines and remedies, ensure to include precautions and exceptions where necessary. Don't include references section.
+Create a stand-alone question from follow-up questions while retaining context from the previous exchanges.
 Format the entire answer in markdown format, with bolds, italics, and pointers wherever required.
 Only return the helpful answer below and nothing else. For answers exceeding 120 tokens, answer in points.
 Context: {context}
@@ -24,7 +21,7 @@ Question: {question}
 """
 
 def set_custom_prompt():
-    prompt = PromptTemplate(template=custom_prompt_template , input_variables=["context","question"])
+    prompt = PromptTemplate(template=custom_prompt_template, input_variables=["context", "question"])
     return prompt
 
 
@@ -34,20 +31,20 @@ class Document:
         self.metadata = metadata
 
 def add_sources_to_answer(sources, answer):
-    if(len(sources)>0):
-        answer+=f"\n#### References\n"
+    if(len(sources) > 0):
+        answer += f"\n#### References\n"
         i = 0
         for source in sources:
-            i+=1
-            answer += format_source_content(source,i)
+            i += 1
+            answer += format_source_content(source, i)
     return answer
 
-def format_source_content(source,i):
+def format_source_content(source, i):
     metadata = source.metadata
     file_name = metadata["source"].split('\\')[-1].split(".pdf")[0]
     page_content = source.page_content
     formatted_content = f"##### {i}.{file_name}\n"
-    formatted_content += f"Source Content :_{page_content}_\n"
+    formatted_content += f"Source Content: _{page_content}_\n"
     return formatted_content
 
 
@@ -63,9 +60,8 @@ def retrieval_qa_chain(llm, prompt, db):
 
 def handle_query(question):
     qa_result = create_chat_bot_chain()
-    response = qa_result({'query':question})
+    response = qa_result({'query': question})
     return response
-
 
 def load_llm():
     llm = HuggingFaceEndpoint(
@@ -77,51 +73,47 @@ def load_llm():
     )
     return llm
 
-
 def create_chat_bot_chain():
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
                                        model_kwargs={'device': 'cpu'})
-    db = FAISS.load_local(DB_FAISS_PATH, embeddings,allow_dangerous_deserialization=True)    
+    db = FAISS.load_local(DB_FAISS_PATH, embeddings, allow_dangerous_deserialization=True)    
     llm = load_llm()
     qa_prompt = set_custom_prompt()
     qa_chain = retrieval_qa_chain(llm, qa_prompt, db)
     return qa_chain
-
 
 @cl.on_chat_start
 async def on_chat_start():
     chain = create_chat_bot_chain()
     msg = cl.Message(content="Starting the Bot .............")
     await msg.send()
-    msg.content ="Hi, How Are You ?? Welcome to vedabot . What is your problem?"
+    msg.content = "Hi, How Are You ?? Welcome to Vedabot. What is your problem?"
     await msg.update()
     cl.user_session.set("context", [])
     cl.user_session.set("chain", chain) 
 
 @cl.on_message
 async def on_message(message: cl.Message):
-    print("User: "+ message.content)
-    chain = cl.user_session.get("chain") 
+    print("User: " + message.content)
+    chain = cl.user_session.get("chain")
     message_history = cl.user_session.get("context")
-    message_history.append({"role":"user","content":message.content})
-    cl.user_session.set("context",message_history)
+    message_history.append({"role": "user", "content": message.content})
+    cl.user_session.set("context", message_history)
     
     cb = cl.AsyncLangchainCallbackHandler(
         stream_final_answer=True, answer_prefix_tokens=["FINAL", "ANSWER"]
     )
     cb.answer_reached = True
+
+    # Include all messages in the combined input
+    combined_input = " ".join([m['content'] for m in message_history])
     
-    message_history = cl.user_session.get("context")
-    res = await chain.ainvoke(message.content + str(message_history), callbacks=[cb])
+    res = await chain.ainvoke(combined_input, callbacks=[cb])
     answer = res["result"]
     print(answer)
-    
     sources = res["source_documents"]
-    print(len(answer))
-    
     answer = add_sources_to_answer(sources, answer)
-    cl.user_session.set("context",message_history)
-    message_history.append({"role":"assistant","content":answer})
+    message_history.append({"role": "assistant", "content": answer})
 
+    cl.user_session.set("context", message_history)
     await cl.Message(content=answer).send()
-    

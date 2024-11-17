@@ -59,8 +59,8 @@ def main():
         st.title("Vedabot")
         st.markdown("Your Ayurvedic Chatbot Assistant :herb:")
         st.image("https://t4.ftcdn.net/jpg/07/22/93/81/360_F_722938112_xunuELGTYPe4cb2JNKQRddTaghih3nfj.jpg", use_container_width=True)  # Replace with your logo URL or local image
-        st.info("Created By Kiet")
-        st.markdown("**Instructions:**\n- Enter your query related to health.\n- Receive Ayurvedic insights.")
+       
+        st.info("**Instructions:**\n- Enter your query related to health.\n- Receive Ayurvedic insights.\n- Incase of severe problem consult the Doctor")
 
         if chat_history:
             st.markdown("### 💬 Chat History")
