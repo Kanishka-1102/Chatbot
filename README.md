@@ -14,12 +14,14 @@ steps to  run it in your local device
    
 2. pip install -r requirements.txt
 
-3.Set up env file having HUGGINGFACEHUB_AC<img width="1440" alt="Screenshot 2024-11-17 at 10 20 20 AM" src="https://github.com/user-attachments/assets/4fe8ee82-1288-4385-8f78-bf38933ac9a9">
-CESS_TOKEN="xyz"
-
+3.Set up env file having HUGGINGFACEHUB_ACCESS_TOKEN="xyz"
 
 Usage 🚀
 Run the bot:
 chainlit run main.py
+
 Or for good GUI 
 Streamlit run app.py
+
+
+<img width="1440" alt="Screenshot 2024-11-17 at 10 20 20 AM" src="https://github.com/user-attachments/assets/4fe8ee82-1288-4385-8f78-bf38933ac9a9">
