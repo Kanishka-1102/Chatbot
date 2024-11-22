@@ -10,3 +10,6 @@ InstructorEmbedding
 datetime
 langchain_huggingface
 chainlit>=0.6.0
+faiss-cpu
+
+
