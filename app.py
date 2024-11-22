@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from model import handle_query
 
 
-# Previous functions remain the same
 def load_chat_history():
     if os.path.exists("chat_history.json"):
         with open("chat_history.json", "r") as file:
@@ -56,19 +55,19 @@ def main():
 
     # Modified Header with enhanced styling
     st.markdown("""
-    <div class="main-header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="https://www.pngarts.com/files/12/Ayurveda-Logo-PNG-Photo.png" 
-                     class="circular-logo">
-            </div>
-            <div class="title-container">
-                <h1>Welcome to Vedabot</h1>
-                <h2>Your Home Remedies Buddy</h2>
-                <p>Explore health solutions based on Ayurvedic knowledge</p>
-            </div>
+ <div class="main-header">
+    <div class="header-content">
+        <div class="logo-container">
+            <img src="https://www.pngarts.com/files/12/Ayurveda-Logo-PNG-Photo.png" 
+                 class="circular-logo">
+        </div>
+        <div class="title-container">
+            <h1>Welcome to Vedabot</h1>
+            <h2>Your Home Remedies Buddy</h2>
+            <p class="explore-text">Explore health solutions based on Ayurvedic knowledge</p>
         </div>
     </div>
+</div>
     """, unsafe_allow_html=True)
 
     # Sidebar content remains the same

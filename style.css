@@ -28,8 +28,10 @@
     flex-shrink: 0;
 }
 
+
 .title-container {
-    text-align: left;
+    text-align: left; 
+    padding-left: 20px; 
 }
 
 .title-container h1 {
@@ -38,7 +40,9 @@
     font-weight: 900;
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    word-wrap: break-word; 
 }
+
 
 .title-container h2 {
     color: #301f01;
@@ -46,6 +50,32 @@
     text-shadow: 2px 2px 4px rgba(2, 48, 17, 0.2);
     margin: 0.5rem 0;
 }
+
+
+.explore-text {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+ 
+    .title-container h1 {
+        font-size: 2.5rem;
+    }
+
+    .title-container h2 {
+        font-size: 1.8rem; 
+    }
+
+
+    .explore-text {
+        display: none;
+    }
+    
+    .title-container {
+        padding-left: 10px;
+    }
+}
+
 
 .title-container p {
     color: #2d1c01;
