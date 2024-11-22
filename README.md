@@ -1,4 +1,5 @@
 Vedabot - Your Personalized Ayurveda Advisor 🌿
+Deployed at:https://vedabot-ayurved.streamlit.app/
 
 Vedabot is an intelligent Ayurveda Advisor chatbot designed to assist users with Ayurvedic solutions, remedies, and general health-related queries. Powered by advanced machine learning models and efficient retrieval mechanisms, Vedabot offers detailed and context-aware advice.
 
