@@ -5,18 +5,20 @@ from datetime import datetime
 from dotenv import load_dotenv
 from model import handle_query
 
-
 def load_chat_history():
+    """Load chat history from JSON file"""
     if os.path.exists("chat_history.json"):
         with open("chat_history.json", "r") as file:
             return json.load(file)
     return []
 
 def save_chat_history(chat_history):
+    """Save chat history to JSON file"""
     with open("chat_history.json", "w") as file:
         json.dump(chat_history, file)
 
 def format_response(response_data):
+    """Format the response with Ayurvedic styling"""
     result = response_data.get('result', '')
     formatted_result = f"""
     <div class="response-container">
@@ -30,57 +32,71 @@ def format_response(response_data):
     return formatted_result
 
 def clear_chat_history():
+    """Clear the chat history file"""
     if os.path.exists("chat_history.json"):
         os.remove("chat_history.json")
 
 def load_css(file_name):
-    with open("style.css", "r") as f:
-        if os.path.exists(file_name):
-            with open(file_name) as f:
-                st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        else:
-            st.warning(f"CSS file '{file_name}' not found. Default styles applied.")
+    """Load custom CSS styles"""
+    if os.path.exists(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    else:
+        st.warning(f"CSS file '{file_name}' not found. Default styles applied.")
 
 def main():
+    """Main application function"""
+    # Load environment variables
     load_dotenv()
+    
+    # Configure Streamlit page
     st.set_page_config(
         page_title="Vedabot - Your Health Companion",
         page_icon=":books:",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
+    
+    # Load custom CSS
     load_css("style.css")
-
+    
+    # Load chat history
     chat_history = load_chat_history()
 
-    # Modified Header with enhanced styling
+    # Header section with logo and title
     st.markdown("""
- <div class="main-header">
-    <div class="header-content">
-        <div class="logo-container">
-            <img src="https://www.pngarts.com/files/12/Ayurveda-Logo-PNG-Photo.png" 
-                 class="circular-logo">
-        </div>
-        <div class="title-container">
-            <h1>Welcome to Vedabot</h1>
-            <h2>Your Home Remedies Buddy</h2>
-            <p class="explore-text">Explore health solutions based on Ayurvedic knowledge</p>
+    <div class="main-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://www.pngarts.com/files/12/Ayurveda-Logo-PNG-Photo.png" 
+                     class="circular-logo">
+            </div>
+            <div class="title-container">
+                <h1>Welcome to Vedabot</h1>
+                <h2>Your Home Remedies Buddy</h2>
+                <p class="explore-text">Explore health solutions based on Ayurvedic knowledge</p>
+            </div>
         </div>
     </div>
-</div>
     """, unsafe_allow_html=True)
 
-    # Sidebar content remains the same
+    # Sidebar content
     with st.sidebar:
         st.title("Vedabot")
         st.markdown("Your Ayurvedic Chatbot Assistant :herb:")
-        st.image("https://t4.ftcdn.net/jpg/07/22/93/81/360_F_722938112_xunuELGTYPe4cb2JNKQRddTaghih3nfj.jpg", use_container_width=True)
+        st.image("https://t4.ftcdn.net/jpg/07/22/93/81/360_F_722938112_xunuELGTYPe4cb2JNKQRddTaghih3nfj.jpg", 
+                use_container_width=True)
         
-        st.info("**Instructions:**\n- Enter your query related to health.\n- Receive Ayurvedic insights.\n- In case of severe problem consult the Doctor")
+        # Display instructions in the sidebar
+        st.info("""**Instructions:**
+        - Enter your query related to health.
+        - Receive Ayurvedic insights.
+        - In case of severe problem consult the Doctor""")
 
+        # Chat history section in sidebar
         if chat_history:
             st.markdown("### 💬 Chat History")
-            for i, chat in enumerate(chat_history):
+            for chat in chat_history:
                 time_display = chat.get('time', 'Time Not Available')
                 question_display = chat.get('question', 'Question Not Available')
                 st.markdown(f"**{time_display}** - {question_display}")
@@ -89,9 +105,10 @@ def main():
                 clear_chat_history()
                 st.success("Chat History has been cleared.")
 
-    # Main content layout with modified image grid
+    # Main content layout
     col1, col2 = st.columns([2, 1])
 
+    # Chat interface column
     with col1:
         st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
         question = st.text_input(
@@ -102,12 +119,12 @@ def main():
         if st.button("Submit", key="submit_button", help="Click to get Ayurvedic insights") and question.strip():
             with st.spinner("Finding the best Ayurvedic insights..."):
                 response_data = handle_query(question)
-               
                 
             if response_data:
                 formatted_response = format_response(response_data)
                 st.markdown(formatted_response, unsafe_allow_html=True)
                 
+                # Save to chat history
                 chat_entry = {
                     "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "question": question
@@ -117,9 +134,11 @@ def main():
             else:
                 st.warning("No relevant insights found. Please refine your query.")
     
+    # Images column
     with col2:
-        
         st.markdown('<div class="image-grid">', unsafe_allow_html=True)
+        
+        # Row 1: Two images
         cols = st.columns(2)
         with cols[0]:
             st.markdown("""
@@ -166,11 +185,12 @@ def main():
         
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Footer section remains the same
+    # Footer section
     st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
     if st.button("Consult Nearest Doctor", key="consult_button"):
         st.markdown("[Click here to consult doctors](https://www.example.com/consult-doctors)", unsafe_allow_html=True)
 
+    # Copyright footer
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: #000000;'>

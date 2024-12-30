@@ -1,15 +1,33 @@
-streamlit
-python-dotenv>=0.21.0
-PyPDF2
-pypdf
-langchain_community
-langchain
-openai
-sentence-transformers
-InstructorEmbedding
-datetime
-langchain_huggingface
-chainlit>=0.6.0
-faiss-cpu
+# Core dependencies
+streamlit==1.32.2
+python-dotenv==1.0.1
 
+# LangChain and related packages
+langchain==0.1.12
+langchain-community==0.0.27
+langchain-core==0.1.30
+langchain-huggingface==0.0.12
 
+# Vector store and embeddings
+faiss-cpu==1.8.0
+sentence-transformers==2.5.1
+
+# Hugging Face dependencies
+huggingface-hub==0.21.4
+transformers==4.38.2
+
+# Data processing
+numpy==1.26.4
+pandas==2.2.1
+
+# Additional utilities
+requests==2.31.0
+tqdm==4.66.2
+pyyaml==6.0.1
+python-magic==0.4.27
+aiohttp==3.9.3
+urllib3==2.2.1
+
+# Optional dependencies for better performance
+torch==2.2.1
+torchvision==0.17.1
