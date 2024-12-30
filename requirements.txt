@@ -1,33 +1,33 @@
 # Core dependencies
-streamlit==1.32.2
-python-dotenv==1.0.1
+streamlit>=1.32.0
+python-dotenv>=1.0.0
 
 # LangChain and related packages
-langchain==0.1.12
-langchain-community==0.0.27
-langchain-core==0.1.30
-langchain-huggingface==0.0.12
+langchain>=0.0.350
+langchain-community>=0.0.10
+langchain-core>=0.0.10
+langchain-huggingface>=0.0.5
 
 # Vector store and embeddings
-faiss-cpu==1.8.0
-sentence-transformers==2.5.1
+faiss-cpu>=1.7.4
+sentence-transformers>=2.2.2
 
 # Hugging Face dependencies
-huggingface-hub==0.21.4
-transformers==4.38.2
+huggingface-hub>=0.19.0
+transformers>=4.36.0
 
 # Data processing
-numpy==1.26.4
-pandas==2.2.1
+numpy>=1.24.0
+pandas>=2.0.0
 
 # Additional utilities
-requests==2.31.0
-tqdm==4.66.2
-pyyaml==6.0.1
-python-magic==0.4.27
-aiohttp==3.9.3
-urllib3==2.2.1
+requests>=2.31.0
+tqdm>=4.65.0
+pyyaml>=6.0
+aiohttp>=3.8.0
+urllib3>=2.0.0
 
 # Optional dependencies for better performance
-torch==2.2.1
-torchvision==0.17.1
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
+torchvision>=0.15.0
